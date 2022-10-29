@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>ML Deployment</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/static/css/style.css">
+  
+</head>
+<body>
+ <div class="login">
+	<h1>Predict Rain</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="/predict" method="post">
+    	 
+    	<input type="text" name="MinTemp" placeholder="Minimum Temperature" required="required" />
+      <input type="text" name="MaxTemp" placeholder="Maximum Humidity" required="required" />
+      <input type="text" name="Humi9Am" placeholder="Humidity @ 9 AM" required="required" />
+      <input type="text" name="Humi3Pm" placeholder="Humidity @ 3 PM" required="required" />
+      <input type="text" name="Temp9Am" placeholder="Temperature @ 9 AM" required="required" />
+      <input type="text" name="Temp3Pm" placeholder="Temperature @ 3 PM" required="required" />
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+ </div>
+</body>
+</html>
