@@ -48,6 +48,9 @@ from sklearn.linear_model import LogisticRegression
 # for storing the trained model as a pickle file
 import pickle
 
+# to shuffle the input data
+from sklearn.utils import shuffle
+
 """#Functions to imporve visualization"""
 
 def resizePlot():
@@ -58,7 +61,7 @@ def resizecolor():
 
 """# Loading the dataset"""
 
-df = pd.read_csv("/Weather1.csv")
+df = pd.read_csv("/content/Book2.csv")
 
 df.head()
 
@@ -74,21 +77,12 @@ df.isnull().sum()
 resizePlot()
 sns.heatmap(df.isnull(), yticklabels=False, cbar=False, cmap='viridis')
 
-"""# Plotting HeatMap to derive hidden correlations bw the columns of the dataset"""
-
-resizecolor()
-sns.heatmap(df.corr(),annot=True)
-
 """# Finding the correlation bw variables and their dependency and drawing conclusions
 
-**Highest correlation exists bw MinTemp & Temp9am**
+**Plotting same graph as above for Humidity & Temperature**
 """
 
-sns.relplot(x='MinTemp', y='Temp9am', data = df)
-
-"""**Plotting same graph as above for MaxTemp & Temp3pm**"""
-
-sns.relplot(x='MaxTemp', y='Temp9am', data = df)
+sns.relplot(x='Humidity', y='Temperature', data = df)
 
 """# Converting Categorical Data to Numeric Data"""
 
@@ -105,11 +99,7 @@ df.head()
 
 x = df.drop('RainToday',axis=1).values
 y = df['RainToday'].values
-
-"""**Scaling the data**"""
-
-# minMax = MinMaxScaler()
-# x = minMax.fit_transform(x)
+x,y = shuffle(x, y)
 
 """**Seperating the training and testing data**"""
 
@@ -124,7 +114,6 @@ dtree = DecisionTreeClassifier()
 
 dtree.fit(X_train,y_train)
 
-
 # storing the trained model as a pickel file
 with open("decisionTree.pkl","wb") as f:
   pickle.dump(dtree, f)
@@ -138,7 +127,7 @@ print('Accuracy:',np.round(accuracy_score(y_test,previsor_dtree),3)*100,'%')
 
 """### Random Forest"""
 
-rfc = RandomForestClassifier(n_estimators=500)
+rfc = RandomForestClassifier()
 
 rfc.fit(X_train,y_train)
 # storing the trained model as a pickel file
@@ -196,7 +185,7 @@ print('Accuracy_Random_Forest: ', Accuracy_rfc,'%')
 print('Accuracy_LR: ', Accuracy_LR,'%')
 print('Accuracy_SVC: ', Accuracy_svc,'%')
 
-"""# We then had a better assessment of our Logistic Regression and Support Vector Machine with an 86.8% chance of not raining with this information
+"""# We then had a better assessment of our Support Vector Machine with an 85.4% chance of not raining with this information
 
 # Defining Functions to call the model and give the predicted value as output
 
@@ -207,7 +196,7 @@ Creating the function to open the pickle file and predict the output based upon 
 
 def decisionTreePrediction(MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm):
   with open("decisionTree.pkl", "rb") as f:
-    dTreeF = pickle.load(f)
+    dTreeF = pickle.load(f);
     preds = dTreeF.predict([[MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm]])
 
     if(preds == 1):
@@ -222,7 +211,7 @@ Creating the function to open the pickle file and predict the output based upon 
 
 def randomForestPrediction(MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm):
   with open("randomForest.pkl", "rb") as f:
-    rfcF = pickle.load(f)
+    rfcF = pickle.load(f);
     preds = rfcF.predict([[MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm]])
 
     if(preds == 1):
@@ -237,7 +226,7 @@ Creating the function to open the pickle file and predict the output based upon 
 
 def SVMPrediction(MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm):
   with open("svm.pkl", "rb") as f:
-    svmF = pickle.load(f)
+    svmF = pickle.load(f);
     preds = svmF.predict([[MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm]])
 
     if(preds == 1):
@@ -252,11 +241,10 @@ Creating the function to open the pickle file and predict the output based upon 
 
 def LRPrediction(MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm):
   with open("logistic.pkl", "rb") as f:
-    LRF = pickle.load(f)
+    LRF = pickle.load(f);
     preds = LRF.predict([[MinTemp, MaxTemp, Humidity9am, Humidity3pm, Temp9am, Temp3pm]])
 
     if(preds == 1):
       return "Rain Tomorrow"
     else:
       return "No Rain Tomorrow"
-

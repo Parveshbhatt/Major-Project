@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 
 app = Flask(__name__) #Initialize the flask App
-model = pickle.load(open('./models/randomForest.pkl', 'rb')) # loading the trained model
+model = pickle.load(open('./models/svm.pkl', 'rb')) # loading the trained model
 
 @app.route('/') # Homepage
 def home():
@@ -22,8 +22,10 @@ def predict():
 
     prediction = model.predict(final_features) # making prediction
     print(prediction)
-
-    return render_template('index.html', prediction_text='Rain: {}'.format(prediction)) # rendering the predicted result
+    rain = "No"
+    if(prediction[0] == 1):
+        prediction = "Yes"
+    return render_template('index.html', prediction_text='Rain: {}'.format(rain)) # rendering the predicted result
 
 if __name__ == "__main__":
     app.run(debug=True)

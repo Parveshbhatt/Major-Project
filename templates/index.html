@@ -17,12 +17,9 @@
      <!-- Main Input For Receiving Query to our ML -->
     <form action="/predict" method="post">
     	 
-    	<input type="text" name="MinTemp" placeholder="Minimum Temperature" required="required" />
-      <input type="text" name="MaxTemp" placeholder="Maximum Humidity" required="required" />
-      <input type="text" name="Humi9Am" placeholder="Humidity @ 9 AM" required="required" />
-      <input type="text" name="Humi3Pm" placeholder="Humidity @ 3 PM" required="required" />
-      <input type="text" name="Temp9Am" placeholder="Temperature @ 9 AM" required="required" />
-      <input type="text" name="Temp3Pm" placeholder="Temperature @ 3 PM" required="required" />
+
+      <input type="text" name="Humidity" placeholder="Humidity" required="required" />
+      <input type="text" name="Temperature" placeholder="Temperature" required="required" />
 
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
     </form>
