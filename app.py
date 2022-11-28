@@ -1,31 +1,43 @@
-# importing necessary libraries and functions
-import numpy as np
-from flask import Flask, request, jsonify, render_template
-import pickle
+from flask import Flask
+from flask_mysqldb import MySQL
+from script.home import *
+from script.login import *
+from script.register import *
 
-app = Flask(__name__) #Initialize the flask App
-model = pickle.load(open('./models/svm.pkl', 'rb')) # loading the trained model
 
-@app.route('/') # Homepage
-def home():
-    return render_template('index.html')
+app = Flask(__name__) 
+app.secret_key = 'jbibuibubaskcnakvccwefre'
 
-@app.route('/predict',methods=['POST'])
-def predict():
-    '''
-    For rendering results on HTML GUI
-    '''
-    
-    # retrieving values from form
-    init_features = [float(x) for x in request.form.values()]
-    final_features = [np.array(init_features)]
+# Enter your database connection details below
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Lokesh@423'
+app.config['MYSQL_DB'] = 'pythonlogin'
 
-    prediction = model.predict(final_features) # making prediction
-    print(prediction)
-    rain = "No"
-    if(prediction[0] == 1):
-        prediction = "Yes"
-    return render_template('index.html', prediction_text='Rain: {}'.format(rain)) # rendering the predicted result
+# Intialize MySQL
+mysql = MySQL(app) 
+
+@app.route('/')
+def h():
+    return home()
+
+@app.route('/login/', methods=['GET', 'POST'])
+def l():
+    return login(mysql)
+
+@app.route('/register', methods=['GET', 'POST'])
+def r():
+    return register(mysql)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
+
+# @app.route('/logout')
+# def logout():
+#     session.pop('username',None)
+#     return redirect('/login')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

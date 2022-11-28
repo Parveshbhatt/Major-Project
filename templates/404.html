@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="redirect()">
+    <p id="pageInfo"></p>
+    <h1>Oops! Looks like the page doesn't exist anymore</h1>
+    <a href="/"><p>Click Here</a>To go to the Home Page</p>
+</body>
+<script language="JavaScript" type="text/javascript">
+  
+    var seconds =6;
+    // countdown timer. took 6 because page takes approx 1 sec to load
+      
+    var url="/";
+    // variable for index.html url
+      
+    function redirect(){
+     if (seconds <=0){
+      
+     // redirect to new url after counter  down.
+      window.location = url;
+     } else {
+      seconds--;
+      document.getElementById("pageInfo").innerHTML="Redirecting to Home Page after "
+    +seconds+" seconds."
+      setTimeout("redirect()", 1000)
+     }
+    }
+    </script>
+</html>
