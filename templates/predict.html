@@ -1,0 +1,39 @@
+{% extends "home.html" %}
+{% block title %}Prediction{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container px-5">
+      <a class="navbar-brand" href="/">Major Project</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+              class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="/predict">Prediction</a></li>
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+          </ul>
+      </div>
+  </div>
+</nav>
+  <div class="container d-flex align-items-center justify-content-center">
+    <div class="outer">
+
+      <div class="weatherimg">
+        <h2><strong>RAIN PREDICTION</strong> </h2>
+        <img class="wl" src="https://cdn-icons-png.flaticon.com/512/5612/5612586.png" alt="weather-img">
+      </div>
+      <img class="tempimg" src="https://cdn-icons-png.flaticon.com/128/7520/7520612.png" alt="temp-img">
+
+      <div class="temptext">
+        <h2 class="font-light text-info m-b-0">Temperature: {{ temperature }}<sup>0</sup></h2>
+        <h2 class="font-light text-warning m-b-0">Humidity: {{ humidity }} <sup>%</sup></h2>
+        <!-- <p class="text-danger">Ludhiana, Punjab.</p> -->
+      </div>
+
+      <h2 class="result">Result of Prediction {{ prediction_text }}</h2>
+
+    </div>
+  </div>
+  {% endblock %}
+

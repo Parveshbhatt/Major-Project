@@ -1,18 +1,27 @@
-from flask import render_template, request, redirect, session
-import MySQLdb.cursors
-def login(mysql):
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
-        password = request.form['password']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password,))
-        account = cursor.fetchone()
-        if account:
-            session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            return redirect('/home')
+from flask import Flask, render_template, request, url_for, redirect, session
+import bcrypt
+def login(records):
+    message = 'Please login to your account'
+    if "email" in session:
+        return redirect('/predict')
+
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        email_found = records.find_one({"email": email})
+        if email_found:
+            email_val = email_found['email']
+            passwordcheck = email_found['password']
+            
+            if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+                session["email"] = email_val
+                return redirect('/predict')
+            else:
+                if "email" in session:
+                    return redirect('/login')
+                message = 'Wrong password'
+                return render_template('login.html', message=message)
         else:
-            msg = 'Incorrect username/password!'
-    return render_template('login.html', msg=msg)
+            message = 'Email not found'
+            return render_template('login.html', message=message)
+    return render_template('login.html', message=message)
