@@ -7,6 +7,6 @@ def import_csv(csvfilename):
         for row in reader:
             if row:  # avoid blank lines
                 row_index += 1
-                columns = [row[0], row[1]]
+                columns = [row[2], row[3]]
                 data.append(columns)
     return data
