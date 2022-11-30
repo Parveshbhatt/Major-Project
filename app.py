@@ -3,6 +3,7 @@ import pymongo
 from script.register import *
 from script.predict import *
 from script.login import *
+from script.home import *
 app = Flask(__name__) 
 app.secret_key = 'jbibuibubaskcnakvccwefre'
 
@@ -13,8 +14,9 @@ db = client.get_database('total_records')
 records = db.register
 
 @app.route("/")
-def home():
-    return render_template('home.html')
+def h():
+    return home()
+    # return render_template('home.html')
 
 @app.route("/predict")
 def p():

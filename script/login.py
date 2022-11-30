@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session
-import bcrypt
+# import bcrypt
 def login(records):
     message = 'Please login to your account'
     if "email" in session:
@@ -12,8 +12,10 @@ def login(records):
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
-            
-            if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+            print(passwordcheck)
+            print(password)
+            # if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+            if password == passwordcheck:
                 session["email"] = email_val
                 return redirect('/predict')
             else:

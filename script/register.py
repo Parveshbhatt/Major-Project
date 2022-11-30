@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session
-import bcrypt
+# import bcrypt
 from script.predict import *
 def register(records):
     message = ''
@@ -22,8 +22,9 @@ def register(records):
             message = 'Passwords should match!'
             return render_template('register.html', message=message)
         else:
-            hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
-            user_input = {'name': user, 'email': email, 'password': hashed}
+            # hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
+            # user_input = {'name': user, 'email': email, 'password': hashed}
+            user_input = {'name': user, 'email': email, 'password': password2}
             records.insert_one(user_input)
             return redirect('/login')
     return render_template('register.html')
