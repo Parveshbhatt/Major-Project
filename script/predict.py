@@ -1,23 +1,28 @@
 import pickle
 from script.csvImport import *
 from script.csvAppend import *
+from script.readGoogleSheet import * 
 from flask import render_template, redirect, session
 from datetime import datetime
 def predict():
     if "email" in session:
         email = session["email"]
+        # for worker
         data = import_csv("DhtDatalogger\dhtReading.csv")
+        # for master
+        data = read_csv()
         output = import_csv("results.csv")
-        print(data)
-        print(output)
-        predictionData = data[-1]
+        # for worker
+        # predictionData= data[-1]
+        # for master
+        predictionData = data[0]
         outputData = []
 
         if(len(output) != 0):
             outputData = output[-1]
 
         appendToCsv = output[-1]
-        last_row = [[predictionData[1], predictionData[0]]]
+        last_row = [[predictionData[3], predictionData[2]]]
 
         model = pickle.load(open('./models/svm.pkl', 'rb'))
 
@@ -44,6 +49,6 @@ def predict():
                 writeToCsv(appendToCsv)
         return render_template('predict.html',
         prediction_text='Rain Today: {}'.format(rain),
-        temperature=' {}'.format(predictionData[0]),
-        humidity=' {}'.format(predictionData[1])) 
+        temperature=' {}'.format(predictionData[2]),
+        humidity=' {}'.format(predictionData[3])) 
     return redirect("/login")
