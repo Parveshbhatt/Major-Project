@@ -4,6 +4,9 @@ from script.register import *
 from script.predict import *
 from script.login import *
 from script.home import *
+# for worker node
+from script.load import *
+from script.redirect import *
 app = Flask(__name__) 
 app.secret_key = 'jbibuibubaskcnakvccwefre'
 
@@ -16,10 +19,12 @@ records = db.register
 @app.route("/")
 def h():
     return home()
-    # return render_template('home.html')
 
 @app.route("/predict")
 def p():
+    # for worker node
+    if(loadCheck()):
+        return redirect() 
     return predict()
 
 @app.route('/login/', methods=['GET', 'POST'])
