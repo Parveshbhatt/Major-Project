@@ -1,0 +1,6 @@
+__pycache__/
+app.wsgi
+fogbusMaster/
+logs/
+script/__pycache__/
+script/google-auth.json
