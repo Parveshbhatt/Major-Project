@@ -1,5 +1,5 @@
 {% extends "home.html" %}
-{% block title %}404 Page Not Found{% endblock %}
+{% block title %}404 Worker Not Found{% endblock %}
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
@@ -11,13 +11,8 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/predict">Prediction</a></li>
-                {% if login  %}
                 <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-                {% else %}
-                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                {% endif %}
-
+  
             </ul>
         </div>
     </div>
@@ -25,8 +20,8 @@
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
         <p id="pageInfo" class="lead"></p>
-        <h1 class="display-1 fw-bold">404</h1>
-        <p class="fs-3"> <span class="text-danger">Opps!</span> Looks like the page doesn't exist anymore.</p>
+        <h1 class="display-1 fw-bold">Worker Not Found</h1>
+        <p class="fs-3"> <span class="text-danger">Opps!</span>The Worker with corresponding IP Address Does not exist</p>
         <br>
         <a href="/" class="btn btn-primary">Go Home</a>
     </div>

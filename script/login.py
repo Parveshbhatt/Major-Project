@@ -12,8 +12,6 @@ def login(records):
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
-            print(passwordcheck)
-            print(password)
             # if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
             if password == passwordcheck:
                 session["email"] = email_val

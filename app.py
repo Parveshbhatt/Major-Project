@@ -4,9 +4,6 @@ from script.register import *
 from script.predict import *
 from script.login import *
 from script.home import *
-# for worker node
-from script.load import *
-from script.redirect import *
 app = Flask(__name__) 
 app.secret_key = 'jbibuibubaskcnakvccwefre'
 
@@ -22,10 +19,8 @@ def h():
 
 @app.route("/predict")
 def p():
-    # for worker node
-    if(loadCheck()):
-        return redirect() 
-    return predict()
+    return predict(records)
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def l():
@@ -34,18 +29,24 @@ def l():
 @app.route('/register', methods=['GET', 'POST'])
 def r():
     return register(records)
-    
+
+@app.route('/workerNotFound')
+def w():
+    return render_template("loadOnWorker.html")
+
 @app.route('/logout', methods=["POST", "GET"])
 def logout():
     if "email" in session:
         session.pop("email", None)
-        return render_template("home.html")
-    else:
-        return render_template('home.html')
+        return redirect("/")
+        # return render_template("home.html")
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("404.html")
+    login = False
+    if "email" in session:
+        login = True
+    return render_template("404.html", login=login)
 
 
 
