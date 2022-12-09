@@ -4,11 +4,12 @@ from script.csvAppend import *
 from script.readGoogleSheet import * 
 from flask import render_template, redirect, session
 from datetime import datetime
+
 def predict():
     if "email" in session:
         email = session["email"]
         # for worker
-        data = import_csv("DhtDatalogger\dhtReading.csv")
+        # data = import_csv("DhtDatalogger\dhtReading.csv")
         # for master
         data = read_csv()
         output = import_csv("results.csv")
