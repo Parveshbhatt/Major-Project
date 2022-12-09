@@ -9,7 +9,8 @@ def register(records):
         
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
-        
+        ipAddress = request.form.get("ipAddress")
+        match = True
         user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
         if user_found:
@@ -24,7 +25,7 @@ def register(records):
         else:
             # hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
             # user_input = {'name': user, 'email': email, 'password': hashed}
-            user_input = {'name': user, 'email': email, 'password': password2}
+            user_input = {'name': user, 'email': email, 'password': password2, 'ipAddress' : ipAddress, 'match' : match}
             records.insert_one(user_input)
             return redirect('/login')
     return render_template('register.html')
