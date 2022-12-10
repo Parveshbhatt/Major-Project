@@ -22,13 +22,6 @@ def predict(records):
                 return render_template("loadOnWorker.html")
             # load the model
             model = pickle.load(open('./models/svm.pkl', 'rb'))
-            
-            # import required csv 
-            #localCSVInput = import_csv("DhtDatalogger\dhtReading.csv")
-            #googleCSVInput = read_csv('rpi-temp')
-            # extract the input from the csvs
-            #googleInput = googleCSVInput[0]
-            #localInput = localCSVInput[-1]
             localInput = getData()
             while(localInput == []):
                 time.sleep(2)
