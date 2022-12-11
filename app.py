@@ -15,7 +15,7 @@ records = db.register
 
 @app.route("/")
 def h():
-    return home()
+    return home(records)
 
 @app.route("/predict")
 def p():
