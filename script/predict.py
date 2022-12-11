@@ -17,15 +17,15 @@ def predict(records):
         ip1 = record['ipAddress']
         ip2 = getIp()
         sheetName = record['sheetName']
-        predictSheetName = record['predictSheetName']
-        predictSheetLink = record['predictSheetLink']
+        predictSheetName = record['predictionSheetName']
+        predictSheetLink = record['predictionSheetLink']
 
         if(match):
             # get input from raspberry pi
             localInput = getData(sheetName)
             while(localInput == []):
                 time.sleep(2)
-                localInput = getData()
+                localInput = getData(sheetName)
             # load the model
             model = pickle.load(open('./models/svm.pkl', 'rb'))
 

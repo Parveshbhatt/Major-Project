@@ -11,7 +11,7 @@ def login(records):
         email_found = records.find_one({"email": email})
         if email_found:
             email_val = email_found['email']
-            passwordcheck = email_found['password']
+            passwordcheck = email_found['password1']
             # if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
             if password == passwordcheck:
                 session["email"] = email_val
