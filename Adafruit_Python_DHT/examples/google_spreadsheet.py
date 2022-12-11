@@ -1,16 +1,16 @@
 import time
 import datetime
 import Adafruit_DHT
-from Adafruit_Python_DHT.examples.importGS import *
+# from Adafruit_Python_DHT.examples.importGS import *
+from script.readGoogleSheet import *
 # Type of sensor, can be Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, or Adafruit_DHT.AM2302.
 DHT_TYPE = Adafruit_DHT.DHT22
 
 DHT_PIN  = 4
 # Google Docs spreadsheet name.
-GDOCS_SPREADSHEET_NAME = 'rpi-temp'
 worksheet = None
-def getData():
-    worksheet = read_csv('rpi-temp')
+def getData(fileName):
+    worksheet = read_csv(fileName)
     if(worksheet == None):
         return []
     humidity, temp = Adafruit_DHT.read(DHT_TYPE, DHT_PIN)

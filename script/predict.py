@@ -1,7 +1,6 @@
 import pickle
 from script.csvImport import *
 from script.csvAppend import *
-from script.readGoogleSheet import * 
 from script.load import *
 from script.writeToGs import *  
 from script.ip import *
@@ -17,25 +16,35 @@ def predict(records):
         match = record['match']
         ip1 = record['ipAddress']
         ip2 = getIp()
+        sheetName = record['sheetName']
+        predictSheetName = record['predictSheetName']
+        predictSheetLink = record['predictSheetLink']
+
         if(match):
-            if(loadCheck() == True):
-                return render_template("loadOnWorker.html")
-            # load the model
-            model = pickle.load(open('./models/svm.pkl', 'rb'))
-            localInput = getData()
+            # get input from raspberry pi
+            localInput = getData(sheetName)
             while(localInput == []):
                 time.sleep(2)
                 localInput = getData()
+            # load the model
+            model = pickle.load(open('./models/svm.pkl', 'rb'))
+
+            if(loadCheck() == True):
+                return render_template("loadOnWorker.html")
+            
             # import the output csv
             outputCSV = import_csv("results.csv")
             outputLastRow = []
+            
+            # getting the prediction from model
             if(len(outputCSV) != 0):
                 outputLastRow = outputCSV[-1]
+            
             # input to be given to model
             inputArray = localInput
             tempHumInput = [[inputArray[3],inputArray[2]]]
-            # getting the prediction from model
             prediction = model.predict(tempHumInput)
+
             # appending the required string according to prediction
             rain = "No"
             if(prediction[0] == 1):
@@ -52,12 +61,14 @@ def predict(records):
             outputArray[3] != outputLastRow[3]and 
             outputArray[4] != outputLastRow[4])):
                 writeToCsv(outputArray)
-                WriteToGs(outputArray)
+                WriteToGs(predictSheetName,outputArray)
 
             return render_template('predict.html',
+            predictSheetLink= predictSheetLink,
             prediction_text='Rain Today: {}'.format(outputArray[-1]),
             temperature=' {}'.format(outputArray[-3]),
             humidity=' {}'.format(outputArray[-2])) 
+        
         elif(ip1 == ip2):
             match = True
             records.update_one( { "email": email}, { "$set": { "match": True } })
