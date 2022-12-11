@@ -17,8 +17,8 @@ def predict(records):
         ip1 = record['ipAddress']
         ip2 = getIp()
         sheetName = record['sheetName']
-        predictSheetName = record['predictionSheetName']
-        predictSheetLink = record['predictionSheetLink']
+        predictSheetName = record['predictSheetName']
+        predictSheetLink = record['predictSheetLink']
 
         if(match):
             # get input from raspberry pi
