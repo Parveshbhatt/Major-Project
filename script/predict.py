@@ -25,7 +25,7 @@ def predict(records):
             localInput = getData(sheetName)
             while(localInput == []):
                 time.sleep(2)
-                localInput = getData()
+                localInput = getData(sheetName)
             # load the model
             model = pickle.load(open('./models/svm.pkl', 'rb'))
 

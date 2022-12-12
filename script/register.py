@@ -11,13 +11,14 @@ def register(records):
         password2 = request.form.get("password2")
         ipAddress = request.form.get("ipAddress")
         match = False
-        sheetCreated = False
-        predictionSheetCreate = False
-        sheetName = user
-        predictSheetName = user + "Predict"
-        predictionSheetName = predictSheetName 
+        sheetName = "rpi-temp"
+        predictSheetName = "dataFromPi"
+        predictSheetLink = "https://docs.google.com/spreadsheets/d/1Xov2lmL8Z35Ud5p4ieednIokc4F52uS6MPTae77yso8/edit?usp=sharing" 
+        sheetLink = "https://docs.google.com/spreadsheets/d/1ZP_pBORadOK5wF0GjkaQgKyuHDL70hW_d_GKFaNhk7k/edit?usp=sharing" 
+        
         user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
+        ip_found = records.find_one({"ipAddress": ipAddress})
         if user_found:
             message = 'There already is a user by that name'
             return render_template('register.html', message=message)
@@ -27,18 +28,23 @@ def register(records):
         if password1 != password2:
             message = 'Passwords should match!'
             return render_template('register.html', message=message)
+        if ip_found:
+            message = 'This Ip address exists in database'
+            return render_template('register.html', message=message)
         else:
             # hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
             # user_input = {'name': user, 'email': email, 'password': hashed}
             user_input = {'name': user, 
                 'email': email, 
-                'password': password2, 
+                'password1': password1, 
+                'password2': password2, 
                 'ipAddress' : ipAddress, 
                 'match' : match,
-                'sheetCreated' : sheetCreated,
-                'predictionSheetCreate' : predictionSheetCreate,
                 'sheetName' : sheetName,
-                'predictionSheetName' : predictionSheetName 
+                'predictSheetName' : predictSheetName,
+                'sheetLink' : sheetLink,
+                'predictSheetLink' : predictSheetLink
+
             }
             records.insert_one(user_input)
             return redirect('/login')
