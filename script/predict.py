@@ -7,6 +7,7 @@ def predict(records):
         email = session["email"]
         record = records.find_one({"email": email})
         match = record['match']
+        username = record['username']
         sheetName = record['sheetName']
         predictSheetName = record['predictSheetName']
         predictSheetLink = record['predictSheetLink']
@@ -47,11 +48,13 @@ def predict(records):
                 WriteToGs(predictSheetName,outputArray)
 
             return render_template('predict.html',
+            match = match,
+            username = username,
             predictSheetLink= predictSheetLink,
             prediction_text='Rain Today: {}'.format(outputArray[-1]),
             temperature=' {}'.format(outputArray[-3]),
             humidity=' {}'.format(outputArray[-2])) 
         else:
-            return render_template("wrongWorker.html")
+            return render_template("wrongWorker.html", username = username)
     return redirect("/login")
 

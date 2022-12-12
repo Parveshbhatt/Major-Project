@@ -34,7 +34,7 @@ def register(records):
         else:
             # hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
             # user_input = {'name': user, 'email': email, 'password': hashed}
-            user_input = {'name': user, 
+            user_input = {'username': user, 
                 'email': email, 
                 'password1': password1, 
                 'password2': password2, 
