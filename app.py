@@ -4,6 +4,7 @@ from script.register import *
 from script.predict import *
 from script.login import *
 from script.home import *
+from script.Error404 import *
 app = Flask(__name__) 
 app.secret_key = 'jbibuibubaskcnakvccwefre'
 
@@ -43,10 +44,7 @@ def logout():
 
 @app.errorhandler(404)
 def not_found(e):
-    login = False
-    if "email" in session:
-        login = True
-    return render_template("404.html", login=login)
+    return errorPage(records)
 
 
 

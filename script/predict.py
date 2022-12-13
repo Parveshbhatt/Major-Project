@@ -14,6 +14,7 @@ def predict(records):
         email = session["email"]
         record = records.find_one({"email": email})
         match = record['match']
+        username = record['username']
         ip1 = record['ipAddress']
         ip2 = getIp()
         sheetName = record['sheetName']
@@ -30,7 +31,7 @@ def predict(records):
             model = pickle.load(open('./models/svm.pkl', 'rb'))
 
             if(loadCheck() == True):
-                return render_template("loadOnWorker.html")
+                return render_template("loadOnWorker.html", username = username)
             
             # import the output csv
             outputCSV = import_csv("results.csv")
@@ -64,6 +65,8 @@ def predict(records):
                 WriteToGs(predictSheetName,outputArray)
 
             return render_template('predict.html',
+            match = match,
+            username = username,
             predictSheetLink= predictSheetLink,
             prediction_text='Rain Today: {}'.format(outputArray[-1]),
             temperature=' {}'.format(outputArray[-3]),
@@ -74,6 +77,6 @@ def predict(records):
             records.update_one( { "email": email}, { "$set": { "match": True } })
             return redirect("/predict")
         else:
-            return render_template("wrongWorker.html")
+            return render_template("wrongWorker.html", username = username)
     return redirect("/login")
 

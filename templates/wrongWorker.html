@@ -1,18 +1,18 @@
 {% extends "home.html" %}
-{% block title %}404 Worker Not Found{% endblock %}
+{% block title %}Worker Not Found{% endblock %}
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="/">Major Project</a>
+        <a class="navbar-brand" href="/">Major Project <span class = "text-white-50"> - Worker</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/predict">Prediction</a></li>
+                <li class="nav-item"><a class="nav-link">{{username}}</a></li>
                 <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-  
+
             </ul>
         </div>
     </div>
