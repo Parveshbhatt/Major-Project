@@ -3,7 +3,7 @@
 {% block content %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="/">Major Project</a>
+        <a class="navbar-brand" href="/">Major Project <span class = "text-white-50"> - Master</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -12,8 +12,11 @@
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/predict">Prediction</a></li>
                 {% if login  %}
-                <li class="nav-item"><a class="nav-link" href={{predictSheetLink}}>History</a></li>
-                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    {% if match %}
+                        <li class="nav-item"><a class="nav-link" target="_blank" href={{ predictSheetLink }}>History</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link">{{username}}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
@@ -30,7 +33,7 @@
             <div class="col-lg-6">
                 <div class="text-center my-5">
                     <h1 class="display-5 fw-bolder text-white mb-2">Envrionmental Condition Monitoring System</h1>
-                    <p class="lead text-white-50 mb-4">based on Edge-Fog Computing using Machine Learning</p>
+                    <p class="lead text-white-50 mb-4">Based on Edge-Fog Computing using Machine Learning</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/predict">Prediction</a>
                     </div>
@@ -41,32 +44,62 @@
 </header>
 <section class="py-5 border-bottom" id="features">
     <div class="container px-5 my-5">
+        <div class="jumbotron bg-white">
+            <h3>About Project</h3>      
+            <p>Because of the rapidly changing climate, the weather forecast is uncertain and inaccurate these days.
+                 As a result, the Weather Reporting System is primarily utilized to monitor the constantly changing climatic and weather 
+                 conditions over-regulated areas like homes, industry, agriculture, and so on. 
+                 The aim of our project is to monitor several aspects of weather using IoT based smart systems and to predict the future values.</p>
+                 <br>
+                 <p>Environmental Condition Monitoring System, an application capable enough to give you the predictions of whether it will rain or not in real-time based on a minimum number of parameters mainly current temperature and humidity allowing you to monitor real time weather and take the necessary steps.</p>
+             </div>
+    <div class="jumbotron bg-white">
+        <h3>The key features of the project are -</h3>
         <div class="row gx-5">
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i>
                 </div>
-                <h2 class="h4 fw-bolder">About Project</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia esse aliquid repellat blanditiis
-                    veniam ad tenetur magnam, repellendus dolores non sit impedit dolore beatae maxime totam consequatur
-                    error earum voluptate.</p>
+                <p>It uses the concept of edge-fog computing consisting of master and worker nodes, giving us the flexibility that if your worker is not able to process the request at the current moment, then master node will take over and will perform the necessary computations. You can access both master and worker by just simply logging into your account associated with the authorized worker.</p>
             </div>
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i>
                 </div>
-                <h2 class="h4 fw-bolder">About Project</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia esse aliquid repellat blanditiis
-                    veniam ad tenetur magnam, repellendus dolores non sit impedit dolore beatae maxime totam consequatur
-                    error earum voluptate.</p>
+                <p>It uses the concept of machine learning classification algorithms to give the predictions. The ML model is deployed on the web app which uses flask. Flask handles all the backend of the whole application and provides dynamic content to each website. Mongodb is also used for storing the necessary information for each user.</p>
             </div>
             <div class="col-lg-4">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i>
                 </div>
-                <h2 class="h4 fw-bolder">About Project</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia esse aliquid repellat blanditiis
-                    veniam ad tenetur magnam, repellendus dolores non sit impedit dolore beatae maxime totam consequatur
-                    error earum voluptate.</p>
+                <p>It uses real time data for making predictions which is made possible by using Raspberry Pi and DHT sensors, the data is sent to worker node (Raspberry Pi) for processing and the worker node makes the prediction and displays the results on web app (on local server) as the whole application is also accessible on the worker node itself.
+                </p>
             </div>
         </div>
+        <br><br>
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i>
+                </div>
+                <p>It provides the user the flexibility to scale up the whole application. The user can connect multiple worker nodes and can manage them and allow all workers to work in complete isolation from each other i.e. separate data is stored for each and every worker and the results for the prediction are also stored separately and all the worker nodes are also accessible from the master. </p>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i>
+                </div>
+                <p>All the predictions each and every worker makes are stored in google sheets with the help of google sheets api allowing us to view the past predictions and past inputs as temperature and humidity. Storing the results in the sheets also provides us with the option to update our model with real time data. The model can be trained from the predictions, thus allowing the model to be trained more efficiently and in short making the model more accurate.</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i>
+                </div>
+                <p>All the information which is to be accessed by the user is secured through the login authentication system and also it is made sure that the results are displayed for valid users by using the IP Addresses of the worker nodes. It is ensured that only those workers can connect to the application and make computations which have valid IP Address and worker’s IP address (which differs with different local networks mainly hotspots and wifi so it is important that you always connect you worker with the same local network) which is stored in the database at the time of registration. If both the IP Addresses match then only the predictions are accessible.</p>
+            </div>
+        </div>
+        </div>
+            <div class="jumbotron bg-white">
+                <p>The main advantage of this project is that it helps in monitoring weather of a local area and thus it helps in developing a microclimate system. Based on the monitored database it predicts the future weather of a particular zone thereby making the result more accurate and relevant for the zone. This system is a portable alternative that can be adapted in broader applications.
+                    It is better than the existing websites which displays collective weather information whereas our system is more specific to the changes in weather adhering to a particular area.
+                    </p>
+            </div>
+        </div>
+        
+
     </div>
 </section>
 
