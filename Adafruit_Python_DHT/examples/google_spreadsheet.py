@@ -21,8 +21,8 @@ def getData(fileName):
     if humidity is None or temp is None:
         return[]
     try:
-        worksheet.insert_row((datetime.datetime.now().strftime('%Y-%m-%d'), datetime.datetime.now().strftime('%H:%M'), temp, humidity), 1)
-        thData = [datetime.datetime.now().strftime('%Y-%m-%d'), datetime.datetime.now().strftime('%H:%M'), temp, humidity]
+        worksheet.insert_row((datetime.datetime.now().strftime('%Y-%m-%d'), datetime.datetime.now().strftime('%H:%M'), round(temp, 2), round(humidity, 2)), 1)
+        thData = [datetime.datetime.now().strftime('%Y-%m-%d'), datetime.datetime.now().strftime('%H:%M'), round(temp, 2), round(humidity, 2)]
         return thData
     except: 
         print('Append error, logging in again')
