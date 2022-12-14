@@ -16,14 +16,14 @@ def predict(records):
             # load the model
             model = pickle.load(open('./models/svm.pkl', 'rb'))
             # import required csv 
-            googleCSVInput = read_csv(sheetName)
+            googleCSVInput = read_csv(sheetName) # input csv
             # extract the input from the csvs
-            googleInput = googleCSVInput[0]
+            googleInput = googleCSVInput[0]  # input csv
             # import the output csv
-            outputCSV = read_csv(predictSheetName)
+            outputCSV = read_csv(predictSheetName)  # output csv
             outputLastRow = []
             if(len(outputCSV) != 0):
-                outputLastRow = outputCSV[0]
+                outputLastRow = outputCSV[-1]
                 print(outputLastRow)
             # input to be given to model
             inputArray = googleInput

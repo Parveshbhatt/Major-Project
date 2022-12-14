@@ -9,11 +9,23 @@
         class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/predict">Prediction</a></li>
+        <li class="nav-item"><a class="nav-link " aria-current="page" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/predict">Prediction</a></li>
         <li class="nav-item"><a class="nav-link" target="_blank" href={{predictSheetLink}}>History</a></li>
-        <li class="nav-item"><a class="nav-link">{{username}}</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link btn btn-outline-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{username}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
+        </li>
+
+
+        <!-- <li class="nav-item"><a class="nav-link">{{username}}</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li> -->
       </ul>
     </div>
   </div>
@@ -33,7 +45,8 @@
       <!-- <p class="text-danger">Ludhiana, Punjab.</p> -->
     </div>
 
-    <h2 class="result">Result of Prediction {{ prediction_text }}</h2>
+    <h2 class="result result-heading">Result of Prediction </h2>
+    <h2 class="result">{{ prediction_text }}</h2>
 
   </div>
 </div>
