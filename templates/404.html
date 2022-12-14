@@ -15,8 +15,14 @@
                     {% if match %}
                         <li class="nav-item"><a class="nav-link" target="_blank" href={{ predictSheetLink }}>History</a></li>
                     {% endif %}
-                    <li class="nav-item"><a class="nav-link">{{username}}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link btn btn-outline-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{username}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                      </li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>

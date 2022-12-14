@@ -2,5 +2,5 @@
 import os
 
 def loadCheck():
-    print(str(os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip()))
-    return False
+    if int(os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip()) >= 20:
+        return False
