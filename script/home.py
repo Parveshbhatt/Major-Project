@@ -1,5 +1,6 @@
 from flask import render_template, redirect, session
 def home(records):
+    print("Running Master Node:")
     login = False
     if "email" in session:
         email = session["email"]
